@@ -1,3 +1,6 @@
+require(plyr)
+require(dplyr)
+
 # data from https://www.huduser.gov/portal/datasets/hads/hads.html
 url <- 'https://www.huduser.gov/portal/datasets/hads/hads.html'
 # file: 'thads2013n.txt'
@@ -18,19 +21,40 @@ thads_met_vars <- names(thads_met)[order(names(thads_met))]
 national <- thads[, c(2,11,18,17,15,21,22,19,23,3,25,27,6)]
 metro <- thads_met[, c(18,4,11,10,8,14,15,12,16,3,19,21,33)]
 
-# revised data frame variables
-# AGE1            Age of head of household
-# BEDRMS          Number of bedrooms in unit
-# NUNITS          Number of units in building
-# TENURE          Owner, renter
-# VALUE           Current market value of unit
-# PER             Number of persons in unit
-# ZINC2           Household income
-# ROOMS           Number of rooms in unit
-# ZADEQ           Recorded adequacy of housing
-# METRO/METRO3    City, secondary city, suburb
-# STRUCTURETYPE   Type of dwelling
-# UTILITY         Utility costs
-# FMR             Fair market rent
+################################################################
+# variables included in the revised data frame                 #
+################################################################
+# AGE1          age           Age of head of household
+# BEDRMS        bedrooms      Number of bedrooms in unit
+# NUNITS        units         Number of units in building
+# TENURE        own           Owner, renter
+# VALUE         value         Current market value of unit
+# PER           persons       Number of persons in unit
+# ZINC2         income        Household income
+# ROOMS         rooms         Number of rooms in unit
+# ZADEQ         adeq          Recorded adequacy of housing
+# METRO/METRO3  metroType     City, secondary city, suburb
+# STRUCTURETYPE dwellType     Type of dwelling
+# UTILITY       utilCost      Utility costs
+# FMR           fairMarket    Fair market rent
 
+
+# rename the columns with more descriptive headings
+newColNames <- c('age', 'bedrooms', 'units', 'own',
+                 'value', 'persons', 'income', 'rooms',
+                 'adeq', 'metroType', 'dwellType',
+                 'utilCost', 'fairMarket')
+
+colnames(metro) <- newColNames
+colnames(national) <- newColNames
+
+
+#############################
+# EXPLORATORY DATA ANALYSIS #
+#############################
+
+# Use the metro data frame
+# Get summaries for renters vs owners
+summary(filter(metro, own==1))
+summary(filter(metro, own==2))
 

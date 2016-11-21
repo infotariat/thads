@@ -12,11 +12,13 @@ url <- 'https://www.huduser.gov/portal/datasets/hads/hads.html'
 ##### Create Data Frames #####
 filename <- 'thads2013n.txt' # derived from AHS national data
 thads <- read.table(filename, header=T, sep=',')
+# alphabetical list of variables
 thads_vars <- names(thads)[order(names(thads))]
 thads_vars
 
 filename_met <- 'thads2013m.txt' # derived from metro data
 thads_met <- read.table(filename_met, header=T, sep=',')
+# alphabetical list of variables
 thads_met_vars <- names(thads_met)[order(names(thads_met))]
 thads_met_vars
 
@@ -50,12 +52,6 @@ newColNames <- c('age', 'bedrooms', 'units', 'own',
 
 colnames(metro) <- newColNames
 colnames(national) <- newColNames
-
-# Clean up: remove the original thads and thads_met data frames
-rm(thads)
-rm(thads_met)
-
-
 
 #############################
 # EXPLORATORY DATA ANALYSIS #
@@ -99,6 +95,9 @@ plt <- ggplot(national, aes(utilCost)) +
   geom_histogram(fill="grey97", color="steelblue")
 plt + facet_grid(. ~ own)
 
+#################
+# NEW VARIABLES #
+#################
 
 # create new columns: monthlyIncome, utilShareInc
 national <- national %>%
@@ -107,8 +106,11 @@ national <- national %>%
 
 head(national)
 
+
+
+
 # breakdown of utilShare by own/rent
 national %>%
   group_by(own) %>%
-  summarize(meanUtilShare = mean(utilShareInc))
+  summarize(avg = mean(utilShareInc))
 

@@ -27,7 +27,7 @@ For the sake of simplicity I have created data frames using the following variab
 * utilCost
 * fairMarket
 
-These variables are mostly named differently in the actual data files. The comments in the copde give more details.
+These variables are mostly named differently in the actual data files. The comments in the code give more details.
 
 ### Creating New Variables
 New variables created so far:

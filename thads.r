@@ -96,10 +96,19 @@ renters <- national %>%
 
 # try using facets
 plt <- ggplot(national, aes(utilCost)) +
-  geom_histogram(fill="grey97", color="lightblue")
+  geom_histogram(fill="grey97", color="steelblue")
 plt + facet_grid(. ~ own)
 
 
+# create new columns: monthlyIncome, utilShareInc
+national <- national %>%
+  mutate(monthlyIncome = round(income / 12, 0),
+         utilShareInc = round(utilCost / monthlyIncome, 3))
 
+head(national)
 
+# breakdown of utilShare by own/rent
+national %>%
+  group_by(own) %>%
+  summarize(meanUtilShare = mean(utilShareInc))
 

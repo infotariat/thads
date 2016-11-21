@@ -13,14 +13,16 @@ url <- 'https://www.huduser.gov/portal/datasets/hads/hads.html'
 filename <- 'thads2013n.txt' # derived from AHS national data
 thads <- read.table(filename, header=T, sep=',')
 thads_vars <- names(thads)[order(names(thads))]
+thads_vars
 
 filename_met <- 'thads2013m.txt' # derived from metro data
 thads_met <- read.table(filename_met, header=T, sep=',')
 thads_met_vars <- names(thads_met)[order(names(thads_met))]
+thads_met_vars
 
 ##### Create Revised Data Frames #####
-national <- thads[, c(2,11,18,17,15,21,22,19,23,3,25,27,6)]
-metro <- thads_met[, c(18,4,11,10,8,14,15,12,16,3,19,21,33)]
+national <- thads[, c(2,11,18,26,15,21,22,19,23,3,25,27,6)]
+metro <- thads_met[, c(18,4,11,20,8,14,15,12,16,3,19,21,33)]
 
 ################################################################
 # variables included in the revised data frame                 #
@@ -28,7 +30,7 @@ metro <- thads_met[, c(18,4,11,10,8,14,15,12,16,3,19,21,33)]
 # AGE1          age           Age of head of household
 # BEDRMS        bedrooms      Number of bedrooms in unit
 # NUNITS        units         Number of units in building
-# TENURE        own           Owner, renter
+# OWNRENT       own           Owner, renter
 # VALUE         value         Current market value of unit
 # PER           persons       Number of persons in unit
 # ZINC2         income        Household income
@@ -84,15 +86,20 @@ ggplot(national, aes(utilCost)) +
 ggplot(metro, aes(utilCost)) +
   geom_histogram(color="blue", fill="grey97")
 
+# sticking with national data for now
+# owners vs. renters
+homeowners <- national %>%
+  filter(own==1)
+
+renters <- national %>%
+  filter(own==2)
+
+# try using facets
+plt <- ggplot(national, aes(utilCost)) +
+  geom_histogram(fill="grey97", color="lightblue")
+plt + facet_grid(. ~ own)
 
 
-
-
-
-# METRO DATA
-# Get summaries for renters vs owners
-summary(filter(metro, own==1))
-summary(filter(metro, own==2))
 
 
 

@@ -21,7 +21,7 @@ For the sake of simplicity I have created data frames using the following variab
 * persons: number of persons in home
 * income: yearly household income
 * rooms: number of rooms in unit
-* adeq: 
+* adeq:
 * metroType
 * dwellType
 * utilCost
@@ -30,3 +30,6 @@ For the sake of simplicity I have created data frames using the following variab
 These variables are mostly named differently in the actual data files. The comments in the copde give more details.
 
 ### Creating New Variables
+New variables created so far:
+* monthlyIncome: income divided by 12
+* utilShareInc: utility cost as a percentage of monthly income

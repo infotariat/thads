@@ -1,5 +1,6 @@
 require(plyr)
 require(dplyr)
+require(ggplot2)
 
 # data from https://www.huduser.gov/portal/datasets/hads/hads.html
 url <- 'https://www.huduser.gov/portal/datasets/hads/hads.html'
@@ -53,8 +54,28 @@ colnames(national) <- newColNames
 # EXPLORATORY DATA ANALYSIS #
 #############################
 
-# Use the metro data frame
+# examine bedrooms vs. utilCost
+sbst1 <- select(national, bedrooms, utilCost)
+sbst1 <- sbst1[-37470, ]
+hist(sbst1$utilCost, 
+     main="Histogram for Utility Costs", 
+     xlab="Utility Cost", 
+     border="slategrey",
+     col="lightgrey", 
+     xlim=c(0, 1200), 
+     breaks=9)
+
+
+
+
+
+
+
+
+# METRO DATA
 # Get summaries for renters vs owners
 summary(filter(metro, own==1))
 summary(filter(metro, own==2))
+
+
 

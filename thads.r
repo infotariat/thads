@@ -49,23 +49,40 @@ newColNames <- c('age', 'bedrooms', 'units', 'own',
 colnames(metro) <- newColNames
 colnames(national) <- newColNames
 
+# Clean up: remove the original thads and thads_met data frames
+rm(thads)
+rm(thads_met)
+
+
 
 #############################
 # EXPLORATORY DATA ANALYSIS #
 #############################
 
-# examine bedrooms vs. utilCost
-sbst1 <- select(national, bedrooms, utilCost)
-sbst1 <- sbst1[-37470, ]
-hist(sbst1$utilCost, 
-     main="Histogram for Utility Costs", 
+# examine utilCost for each population
+
+hist(national$utilCost,
+     main="Histogram for Utility Costs,\nNational Sample", 
      xlab="Utility Cost", 
-     border="slategrey",
-     col="lightgrey", 
-     xlim=c(0, 1200), 
-     breaks=9)
+     border="darkred",
+     col="grey97",
+     xlim=c(0, 1000),
+     breaks=12)
 
+hist(metro$utilCost, 
+     main="Histogram for Utility Costs,\nMetro Sample", 
+     xlab="Utility Cost", 
+     border="blue",
+     col="grey97",
+     xlim=c(0, 1000),
+     breaks=12)
 
+# Using ggplot2
+ggplot(national, aes(utilCost)) +
+  geom_histogram(color="darkred", fill="grey97")
+
+ggplot(metro, aes(utilCost)) +
+  geom_histogram(color="blue", fill="grey97")
 
 
 

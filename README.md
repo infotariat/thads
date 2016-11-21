@@ -13,15 +13,15 @@ At the present time the questions are of an exploratory nature. How can we best 
 
 ### Variables of Interest
 For the sake of simplicity I have created data frames using the following variables:
-* age
-* bedrooms
-* units
-* own
-* value
-* persons
-* income
-* rooms
-* adeq
+* age: age of respondent
+* bedrooms: number of bedrooms in unit
+* units: number of units in the building
+* own: 1 = owns, 2 = rents
+* value: value of the home, or -6 for renters
+* persons: number of persons in home
+* income: yearly household income
+* rooms: number of rooms in unit
+* adeq: 
 * metroType
 * dwellType
 * utilCost

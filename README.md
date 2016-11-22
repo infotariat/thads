@@ -33,3 +33,8 @@ These variables are mostly named differently in the actual data files. The comme
 New variables created so far:
 * monthlyIncome: income divided by 12
 * utilShareInc: utility cost as a percentage of monthly income
+
+### Next Steps
+* Identify critical questions in the domain of housing availability and affordability
+* Create screenshots
+* Further EDA

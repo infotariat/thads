@@ -9,7 +9,9 @@ url <- 'https://www.huduser.gov/portal/datasets/hads/hads.html'
 # national data file has 64535 observations of 99 variables
 # metro data file has 65899 observations of 98 variables
 
-##### Create Data Frames #####
+######################
+# Create Data Frames #
+######################
 filename <- 'thads2013n.txt' # derived from AHS national data
 thads <- read.table(filename, header=T, sep=',')
 # alphabetical list of variables
@@ -27,7 +29,8 @@ national <- thads[, c(2,11,18,26,15,21,22,19,23,3,25,27,6)]
 metro <- thads_met[, c(18,4,11,20,8,14,15,12,16,3,19,21,33)]
 
 ################################################################
-# variables included in the revised data frame                 #
+#                         VARIABLES                            #
+# ORIGINAL      DATA FRAME    DESCRIPTION                      #
 ################################################################
 # AGE1          age           Age of head of household
 # BEDRMS        bedrooms      Number of bedrooms in unit
@@ -105,9 +108,6 @@ national <- national %>%
          utilShareInc = round(utilCost / monthlyIncome, 3))
 
 head(national)
-
-
-
 
 # breakdown of utilShare by own/rent
 national %>%

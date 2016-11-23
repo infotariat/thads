@@ -147,7 +147,7 @@ ho2 <- homeowners[homeowners$value < 2520000 &
                             homeowners$income >= 0, ]
 
 # distribution of incomes
-g <- ggplot(df, aes(x=income))
+g <- ggplot(ho2, aes(x=income))
 g + geom_histogram(binwidth=20000, 
                  fill="honeydew", 
                  col="cyan3") + 

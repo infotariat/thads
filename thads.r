@@ -1,6 +1,7 @@
 require(plyr)
 require(dplyr)
 require(ggplot2)
+require(scales)
 
 # data from https://www.huduser.gov/portal/datasets/hads/hads.html
 url <- 'https://www.huduser.gov/portal/datasets/hads/hads.html'
@@ -147,13 +148,13 @@ ho2 <- homeowners[homeowners$value < 2520000 &
 
 # distribution of incomes
 g <- ggplot(df, aes(x=income))
-g + geom_histogram(binwidth=50000, 
+g + geom_histogram(binwidth=20000, 
                  fill="honeydew", 
                  col="cyan3") + 
   theme_classic() +
   xlim(0, 500000) +
   labs(title="Income Distribution\nHomeowners") +
-  scale_x_continuous()
+  scale_x_continuous(labels=comma)
 
 
 

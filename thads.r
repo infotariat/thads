@@ -138,5 +138,24 @@ ggplot(homeowners, aes(x=value)) +
 summary(homeowners$value)
 median(homeowners$value)
 
+# Problem: homeowners contains many records with $2520000 homes.
+# Also, we have a number of people with negative income values, 
+# indicating NA values
+# Solution: create modified data frame that omits those records.
+ho2 <- homeowners[homeowners$value < 2520000 &
+                            homeowners$income >= 0, ]
+
+# distribution of incomes
+g <- ggplot(df, aes(x=income))
+g + geom_histogram(binwidth=50000, 
+                 fill="honeydew", 
+                 col="cyan3") + 
+  theme_classic() +
+  xlim(0, 500000) +
+  labs(title="Income Distribution\nHomeowners") +
+  scale_x_continuous()
+
+
+
 
 

@@ -85,7 +85,17 @@ ggplot(national, aes(utilCost)) +
 ggplot(metro, aes(utilCost)) +
   geom_histogram(color="blue", fill="grey97")
 
+#################
+# NEW VARIABLES #
+#################
+
+
 # sticking with national data for now
+# create new columns: monthlyIncome, utilShareInc
+national <- national %>%
+  mutate(monthlyIncome = round(income / 12, 0),
+         utilShareInc = round(utilCost / monthlyIncome, 3)) # what if they have 0 income? NaN problems...
+
 # owners vs. renters
 homeowners <- national %>%
   filter(own==1)
@@ -93,24 +103,40 @@ homeowners <- national %>%
 renters <- national %>%
   filter(own==2)
 
-# try using facets
-plt <- ggplot(national, aes(utilCost)) +
-  geom_histogram(fill="grey97", color="steelblue")
-plt + facet_grid(. ~ own)
-
-#################
-# NEW VARIABLES #
-#################
-
-# create new columns: monthlyIncome, utilShareInc
-national <- national %>%
-  mutate(monthlyIncome = round(income / 12, 0),
-         utilShareInc = round(utilCost / monthlyIncome, 3))
-
+head(renters)
+head(homeowners)
 head(national)
 
-# breakdown of utilShare by own/rent
-national %>%
-  group_by(own) %>%
-  summarize(avg = mean(utilShareInc))
+# breakdown of utility costs by own/rent
+plt <- ggplot(national, aes(utilCost)) +
+  geom_histogram(fill="grey97", 
+                 color="steelblue",)
+
+plt + facet_grid(. ~ own)
+
+# what is the breakdown of home values?
+# one way of looking at it: the growth curve of sorted home values
+plot(sort(homeowners$value), type="l",
+     main="Chart of Sorted Home Values\nNational Sample Homeowners",
+     col="blue",
+     xlab="Sorted Homeowners",
+     ylab="Home Value"
+     )
+
+
+
+# another way: histogram of home values
+ggplot(homeowners, aes(x=value)) +
+  geom_histogram(binwidth=50000,
+                 color="lightgreen",
+                 fill="grey97") +
+  theme_classic() +
+  labs(title="Home Values\nNational Sample")
+
+
+# statistical summary
+summary(homeowners$value)
+median(homeowners$value)
+
+
 
